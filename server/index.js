@@ -375,3 +375,6 @@ app.post("/api/checkout", requireAuth, async(req, res) => {
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });
+
+// Export pour Vercel
+module.exports = app;
