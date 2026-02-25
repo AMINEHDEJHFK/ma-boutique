@@ -18,6 +18,16 @@ const DATABASE_URL = process.env.DATABASE_URL;
 const CLIENT_DIR = path.join(__dirname, "..", "client");
 app.use(express.static(CLIENT_DIR));
 
+// Pour servir l'index.html sur la racine si express.static ne suffit pas avec Vercel
+app.get('/', (req, res) => {
+  res.sendFile(path.join(CLIENT_DIR, 'index.html'));
+});
+
+// Pour les fichiers HTML spécifiques
+app.get('/*.html', (req, res) => {
+    res.sendFile(path.join(CLIENT_DIR, req.path));
+});
+
 // Initialisation de la base de données PostgreSQL
 let pool;
 if (DATABASE_URL) {
